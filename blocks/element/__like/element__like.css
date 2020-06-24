@@ -1,0 +1,4 @@
+.element__like:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}

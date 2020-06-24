@@ -1,0 +1,17 @@
+.root {
+    padding: 45px 199px 60px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+@media screen and (max-width: 1200px) {
+    .root {
+      padding:28px 50px 36px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .root {
+      padding:28px 0 36px;
+    }
+}
