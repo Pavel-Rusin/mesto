@@ -1,4 +1,3 @@
-@import url(./__group/element__group.css);
 @import url(./__image/element__image.css);
 @import url(./__description/element__description.css);
 @import url(./__text/element__text.css);
@@ -7,4 +6,6 @@
 .element {
     border-radius: 10px;
     background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
 }

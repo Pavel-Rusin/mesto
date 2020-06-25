@@ -3,8 +3,8 @@ const popup = document.querySelector('.popup');
 const fullname = document.querySelector('.profile__fullname');
 const subtitle = document.querySelector('.profile__subtitle');
 const submit = document.querySelector('.popup__submit');
-const fullnameInput = document.querySelector('.popup__fullname');
-const subtitleInput = document.querySelector('.popup__subtitle');
+const fullnameInput = document.querySelector('.popup__input_fullname');
+const subtitleInput = document.querySelector('.popup__input_subtitle');
 const exitButton = document.querySelector('.popup__close');
 
 editButton.addEventListener('click', popupDisplayOn);

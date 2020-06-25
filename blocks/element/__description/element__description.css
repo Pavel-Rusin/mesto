@@ -1,5 +1,7 @@
 .element__description {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-left: 21px;
     margin-right: 29px;
 }
