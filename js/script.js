@@ -13,18 +13,22 @@ exitButton.addEventListener('click', popupDisplayOff);
 submit.addEventListener('click', saveChange);
 
 function popupDisplayOn() {
-    popup.style.display = 'flex'
+    popupToggle()
     fullnameInput.value = fullname.innerText
     subtitleInput.value = subtitle.innerText
 }
 
-
 function popupDisplayOff() {
-    popup.style.display = 'none'
+    popupToggle()
 }
 
-function saveChange() {
+function saveChange(event) {
+    event.preventDefault()
     fullname.innerText = fullnameInput.value
     subtitle.innerText = subtitleInput.value
     popupDisplayOff()
+}
+
+const popupToggle = function () {
+    popup.classList.toggle('popup_opened')
 }

@@ -1,7 +1,8 @@
-@import url(./_edit/profile__button_edit.css);
 @import url(./_add/profile__button_add.css);
+@import url(./_edit/profile__button_edit.css);
 
 .profile__button:hover {
     opacity: 0.6;
     cursor: pointer;
+    transition: opacity .6s ease-in-out;
 }

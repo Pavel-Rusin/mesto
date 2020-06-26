@@ -1,4 +1,4 @@
-.cards {
+.elements__list {
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(282px, 1fr));
     row-gap: 21px;
@@ -8,13 +8,13 @@
 }
 
 @media screen and (max-width: 750px) {
-    .cards {
+    .elements__list {
         padding: 0 19px;
     }
 }
 
 @media screen and (max-width: 319px) {
-    .cards {
+    .elements__list {
         padding: 0;
     }
 }
