@@ -2,10 +2,13 @@
 @import url(./__description/element__description.css);
 @import url(./__text/element__text.css);
 @import url(./__like/element__like.css);
+@import url(./__delete/element__delete.css);
 
 .element {
     border-radius: 10px;
     background: #FFFFFF;
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
 }

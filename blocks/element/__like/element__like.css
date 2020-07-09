@@ -1,3 +1,5 @@
+@import url(./_clicked/element__like_clicked.css);
+
 .element__like {
     background: url(./../../../images/like.svg) no-repeat center center;
     background-size: contain;
