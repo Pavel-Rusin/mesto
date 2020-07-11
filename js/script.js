@@ -1,4 +1,5 @@
 // открываем попап редактирования профиля
+const popup = document.querySelector('.popup');
 const editButton = document.querySelector('.profile__button_edit'); 
 const popupProfile = document.querySelector('.popup_type_profile'); 
 const fullname = document.querySelector('.profile__fullname'); 
@@ -8,38 +9,34 @@ const fullnameInput = document.querySelector('.popup__input_fullname');
 const subtitleInput = document.querySelector('.popup__input_subtitle'); 
 const exitButton = document.querySelector('.popup__profile_close'); 
  
-editButton.addEventListener('click', popupDisplayOn); 
-exitButton.addEventListener('click', popupDisplayOff); 
- 
+editButton.addEventListener('click', openProfile);  
+exitButton.addEventListener('click', () => popupToggle(popupProfile));
+  
 submit.addEventListener('click', saveChange); 
- 
-function popupDisplayOn() { 
-    popupToggle() 
-    fullnameInput.value = fullname.innerText 
-    subtitleInput.value = subtitle.innerText 
-} 
- 
-function popupDisplayOff() { 
-    popupToggle() 
-} 
- 
-function saveChange(event) { 
-    event.preventDefault() 
-    fullname.innerText = fullnameInput.value 
-    subtitle.innerText = subtitleInput.value 
-    popupDisplayOff() 
-} 
- 
-const popupToggle = function () { 
-    popupProfile.classList.toggle('popup_opened') 
-} 
+
+//const profileForm = document.querySelector()
+  
+function openProfile() {  
+    popupToggle(popupProfile)  
+    fullnameInput.value = fullname.innerText  
+    subtitleInput.value = subtitle.innerText  
+}
+  
+function saveChange(event) {  
+    event.preventDefault()  
+    fullname.innerText = fullnameInput.value  
+    subtitle.innerText = subtitleInput.value  
+    popupToggle(popupProfile)  
+}
+
+const popupToggle = function (popup) {
+    popup.classList.toggle('popup_opened')
+}
 
 //добавляем попап добавления карточки
 const elementList = document.querySelector('.elements__list');
 const popapImage = document.querySelector('.popup_type_add-card');
 const addButton = document.querySelector('.profile__button_add');
-const elementText = document.querySelector('.element__text');
-const elementImage = document.querySelector('.element__image');
 const nameInput = document.querySelector('.popup__input_name'); 
 const imageInput = document.querySelector('.popup__input_image');
 const exitAddButton = document.querySelector('.popup__image_close'); 
@@ -102,12 +99,8 @@ function likeElement(evt) {
 }
 
 //открытие попапа с добавлением нового элемента
-const popupAddToggle = function () { 
-    popapImage.classList.toggle('popup_opened') 
-} 
-
-addButton.addEventListener('click', () => popupAddToggle());
-exitAddButton.addEventListener('click', () => popupAddToggle());
+addButton.addEventListener('click', () => popupToggle(popapImage));
+exitAddButton.addEventListener('click', () => popupToggle(popapImage));
 
 addSubmit.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -115,8 +108,8 @@ addSubmit.addEventListener('click', (evt) => {
       name: nameInput.value,
       link: imageInput.value
     };
-    elementList.prepend(createElement(card));
-    popupAddToggle(popapImage);
+    addCard(createElement(card))
+    popupToggle(popapImage);
     nameInput.value = '';
     imageInput.value = '';
 });
@@ -125,25 +118,25 @@ addSubmit.addEventListener('click', (evt) => {
 const photoPopup = document.querySelector('.popup_type_photo')
 const photoImage = document.querySelector('.popup__image');
 const photoDescription = document.querySelector('.popup__description');
-const exitPhotoButton = document.querySelector('.popup__photo_close');
+const exitPhotoButton = document.querySelector('.popup__photo_close'); 
 
-const popupPhotoToggle = function () { 
-    photoPopup.classList.toggle('popup_opened') 
-} 
+exitPhotoButton.addEventListener('click', () => popupToggle(photoPopup));
 
-
-exitPhotoButton.addEventListener('click', () => popupPhotoToggle());
+//выносим в отдельную функцию 
+function addCard(card) {
+    elementList.prepend(card);
+}
 
 function vievPopup(name,link){
     photoImage.src = link;
     photoDescription.textContent = name;
-    popupPhotoToggle(photoPopup);
+    popupToggle(photoPopup);
 };
 
 //загружаем карточки
-function addCard() {
+function addInitialCards() {
     initialCards.forEach((cardElement) => {
-        elementList.prepend(createElement(cardElement));
+        addCard(createElement(cardElement))
     });
 }
-addCard();
+addInitialCards();

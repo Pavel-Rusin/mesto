@@ -3,6 +3,7 @@
 @import url(./__text/element__text.css);
 @import url(./__like/element__like.css);
 @import url(./__delete/element__delete.css);
+@import url(./__link/element__link.css);
 
 .element {
     border-radius: 10px;
