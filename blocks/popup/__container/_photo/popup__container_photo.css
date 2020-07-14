@@ -4,3 +4,9 @@
     padding: 0;
     background: none;
 }
+
+@media screen and (max-width: 560px) {
+    .popup__container_photo {
+        max-width: 240px;
+    }
+}
