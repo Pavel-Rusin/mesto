@@ -21,7 +21,6 @@ const addButton = document.querySelector('.profile__button_add');
 const nameInput = document.querySelector('.popup__input_name'); 
 const imageInput = document.querySelector('.popup__input_image');
 const exitAddButton = document.querySelector('.popup__image_close'); 
-const addSubmit = document.querySelector('.popup__submit_image');
 const addImageForm = document.querySelector('form[name="image"]');
 
 const initialCards = [
