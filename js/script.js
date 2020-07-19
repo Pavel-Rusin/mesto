@@ -1,4 +1,5 @@
 // открываем попап редактирования профиля
+const popup = document.querySelector('.popup');
 const editButton = document.querySelector('.profile__button_edit'); 
 const popupProfile = document.querySelector('.popup_type_profile'); 
 const fullname = document.querySelector('.profile__fullname'); 
@@ -7,6 +8,7 @@ const fullnameInput = document.querySelector('.popup__input_fullname');
 const subtitleInput = document.querySelector('.popup__input_subtitle'); 
 const exitButton = document.querySelector('.popup__profile_close');
 const profileForm = document.querySelector('form[name="shape"]');
+const editButtonSubmit = document.querySelector('.popup__submit_profile');
 
 //Открываем фото попап
 const photoPopup = document.querySelector('.popup_type_photo')
@@ -22,6 +24,7 @@ const nameInput = document.querySelector('.popup__input_name');
 const imageInput = document.querySelector('.popup__input_image');
 const exitAddButton = document.querySelector('.popup__image_close'); 
 const addImageForm = document.querySelector('form[name="image"]');
+const addButtonSubmit = document.querySelector('.popup__submit_image');
 
 const initialCards = [
     {
@@ -79,15 +82,35 @@ function likeElement(evt) {
     evt.target.classList.toggle('element__like_clicked');
 }
 
-//редактирование профиля
+//открытие и закрытие попапов
 function popupToggle (popup) {
-    popup.classList.toggle('popup_opened')
+    popup.classList.toggle('popup_opened');
+    document.addEventListener('keyup', exitEscKey);
 }
-  
+
+function exitEscKey(evt) {
+    const popupActive = document.querySelector('.popup_opened');
+    if (evt.code === 'Escape' && popupActive) {
+        popupToggle(popupActive);
+    }
+}
+
+function overlayPopupClose(evt) {
+    const popupActive = document.querySelector('.popup_opened');
+    if (evt.target.classList.contains('popup_opened')) {
+        popupToggle(popupActive);
+    }
+}
+
+//event.currentTarget === event.target
+
+//редактирование профиля 
 function openProfile() {  
-    popupToggle(popupProfile)  
+    popupToggle(popupProfile)
+    resetForm(popupProfile)
+    enableButton(editButtonSubmit,'popup__button_disabled');
     fullnameInput.value = fullname.innerText  
-    subtitleInput.value = subtitle.innerText  
+    subtitleInput.value = subtitle.innerText
 }
   
 function saveChange(event) {  
@@ -109,6 +132,9 @@ function addCard(card) {
     elementList.prepend(card);
 }
 
+
+
+
 //открытие попапа с добавлением нового элемента
 addImageForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -117,17 +143,24 @@ addImageForm.addEventListener('submit', (evt) => {
       link: imageInput.value
     };
     addCard(createElement(card))
-    popupToggle(popapImage);
     nameInput.value = '';
     imageInput.value = '';
+    popupToggle(popapImage);
+    resetForm(popapImage);
+    disableButton(addButtonSubmit,'popup__button_disabled');
 });
 
+popupProfile.addEventListener('click', overlayPopupClose);
+photoPopup.addEventListener('click', overlayPopupClose);
+popapImage.addEventListener('click', overlayPopupClose);
+
+exitPhotoButton.addEventListener('click', () => popupToggle(photoPopup));
+exitButton.addEventListener('click', () => popupToggle(popupProfile));
 addButton.addEventListener('click', () => popupToggle(popapImage));
 exitAddButton.addEventListener('click', () => popupToggle(popapImage));
+
 profileForm.addEventListener('submit', saveChange);
-exitPhotoButton.addEventListener('click', () => popupToggle(photoPopup));
 editButton.addEventListener('click', openProfile);  
-exitButton.addEventListener('click', () => popupToggle(popupProfile));
 
 //загружаем карточки
 function addInitialCards() {
