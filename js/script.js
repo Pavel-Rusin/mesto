@@ -18,7 +18,7 @@ const exitPhotoButton = document.querySelector('.popup__photo_close');
 
 //добавляем попап добавления карточки
 const elementList = document.querySelector('.elements__list');
-const popapImage = document.querySelector('.popup_type_add-card');
+const popupImage = document.querySelector('.popup_type_add-card');
 const addButton = document.querySelector('.profile__button_add');
 const nameInput = document.querySelector('.popup__input_name'); 
 const imageInput = document.querySelector('.popup__input_image');
@@ -107,8 +107,6 @@ function overlayPopupClose(evt) {
     }
 }
 
-//event.currentTarget === event.target
-
 //редактирование профиля 
 function openProfile() {  
     popupOpen(popupProfile)
@@ -147,19 +145,19 @@ addImageForm.addEventListener('submit', (evt) => {
     addCard(createElement(card))
     nameInput.value = '';
     imageInput.value = '';
-    popupClose(popapImage);
-    resetForm(popapImage);
+    popupClose(popupImage);
+    resetForm(popupImage);
     disableButton(addButtonSubmit,'popup__button_disabled');
 });
 
 popupProfile.addEventListener('click', overlayPopupClose);
 photoPopup.addEventListener('click', overlayPopupClose);
-popapImage.addEventListener('click', overlayPopupClose);
+popupImage.addEventListener('click', overlayPopupClose);
 
 exitPhotoButton.addEventListener('click', () => popupClose(photoPopup));
 exitButton.addEventListener('click', () => popupClose(popupProfile));
-addButton.addEventListener('click', () => popupOpen(popapImage));
-exitAddButton.addEventListener('click', () => popupClose(popapImage));
+addButton.addEventListener('click', () => popupOpen(popupImage));
+exitAddButton.addEventListener('click', () => popupClose(popupImage));
 
 profileForm.addEventListener('submit', saveChange);
 editButton.addEventListener('click', openProfile);  
