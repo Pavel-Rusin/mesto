@@ -83,22 +83,27 @@ function likeElement(evt) {
 }
 
 //открытие и закрытие попапов
-function popupToggle (popup) {
-    popup.classList.toggle('popup_opened');
+function popupOpen (popup) {
+    popup.classList.add('popup_opened');
     document.addEventListener('keyup', exitEscKey);
+}
+
+function popupClose (popup) {
+    popup.classList.remove('popup_opened');
+    document.removeEventListener('keyup', exitEscKey);
 }
 
 function exitEscKey(evt) {
     const popupActive = document.querySelector('.popup_opened');
     if (evt.code === 'Escape' && popupActive) {
-        popupToggle(popupActive);
+        popupClose(popupActive);
     }
 }
 
 function overlayPopupClose(evt) {
     const popupActive = document.querySelector('.popup_opened');
     if (evt.target.classList.contains('popup_opened')) {
-        popupToggle(popupActive);
+        popupClose(popupActive);
     }
 }
 
@@ -106,7 +111,7 @@ function overlayPopupClose(evt) {
 
 //редактирование профиля 
 function openProfile() {  
-    popupToggle(popupProfile)
+    popupOpen(popupProfile)
     resetForm(popupProfile)
     enableButton(editButtonSubmit,'popup__button_disabled');
     fullnameInput.value = fullname.innerText  
@@ -117,23 +122,20 @@ function saveChange(event) {
     event.preventDefault()  
     fullname.innerText = fullnameInput.value  
     subtitle.innerText = subtitleInput.value  
-    popupToggle(popupProfile)  
+    popupClose(popupProfile)  
 }
 
 //просмотр фото попапа
 function vievPopup(name,link){
     photoImage.src = link;
     photoDescription.textContent = name;
-    popupToggle(photoPopup);
-};
+    popupOpen(photoPopup);
+}
 
 //создание карточек
 function addCard(card) {
     elementList.prepend(card);
 }
-
-
-
 
 //открытие попапа с добавлением нового элемента
 addImageForm.addEventListener('submit', (evt) => {
@@ -145,7 +147,7 @@ addImageForm.addEventListener('submit', (evt) => {
     addCard(createElement(card))
     nameInput.value = '';
     imageInput.value = '';
-    popupToggle(popapImage);
+    popupClose(popapImage);
     resetForm(popapImage);
     disableButton(addButtonSubmit,'popup__button_disabled');
 });
@@ -154,10 +156,10 @@ popupProfile.addEventListener('click', overlayPopupClose);
 photoPopup.addEventListener('click', overlayPopupClose);
 popapImage.addEventListener('click', overlayPopupClose);
 
-exitPhotoButton.addEventListener('click', () => popupToggle(photoPopup));
-exitButton.addEventListener('click', () => popupToggle(popupProfile));
-addButton.addEventListener('click', () => popupToggle(popapImage));
-exitAddButton.addEventListener('click', () => popupToggle(popapImage));
+exitPhotoButton.addEventListener('click', () => popupClose(photoPopup));
+exitButton.addEventListener('click', () => popupClose(popupProfile));
+addButton.addEventListener('click', () => popupOpen(popapImage));
+exitAddButton.addEventListener('click', () => popupClose(popapImage));
 
 profileForm.addEventListener('submit', saveChange);
 editButton.addEventListener('click', openProfile);  
