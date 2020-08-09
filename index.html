@@ -41,7 +41,7 @@
             <span class="popup__error" id="fullname-input-error"></span>
             <input type="text" class="popup__input popup__input_subtitle" name="popup__subtitle" id="subtitle-input" minlength="2" maxlength="200" required>
             <span class="popup__error" id="subtitle-input-error"></span>
-            <button class="popup__submit popup__submit_profile" type="submit">Сохранить</button>
+            <button class="popup__submit popup__button_type_submit" type="submit">Сохранить</button>
         </form>
     </div>
     <div class="popup popup_type_add-card">
@@ -52,7 +52,7 @@
             <span class="popup__error" id="image-name-error"></span>
             <input type="url" class="popup__input popup__input_image" name="popup__input_image" placeholder="Ссылка на картинку" id="image-url" required>
             <span class="popup__error" id="image-url-error"></span>
-            <button class="popup__submit popup__submit_image" type="submit">Сохранить</button>
+            <button class="popup__submit popup__button_type_submit" type="submit">Сохранить</button>
         </form>
     </div>
     <div class="popup popup_type_photo">
@@ -74,7 +74,8 @@
             </div>
         </li>
     </template>
-    <script src="./js/script.js"></script>
-    <script src="./js/validate.js"></script>
+    <script src="./js/index.js" type="module"></script>
+    <script src="./js/FormValidator.js" type="module"></script>
+    <script src="./js/Card.js" type="module"></script>
 </body>
 </html>

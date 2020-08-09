@@ -92,3 +92,11 @@ export default class FormValidator {
     return this._element;
   }
 }
+
+export const validateSettings = {
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button_type_submit",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};

@@ -1,21 +1,20 @@
-import FormValidator from './validate.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 import {
-    initialCards,
     validateSettings
-} from './constants.js';
-
+} from './FormValidator.js';
 
 // открываем попап редактирования профиля
-const popup = document.querySelector('.popup');
 const editButton = document.querySelector('.profile__button_edit'); 
-const popupProfile = document.querySelector('.popup_type_profile'); 
+const popupProfile = document.querySelector('.popup_type_profile');
+const editFormSubmitButton = popupProfile.querySelector('.popup__button_type_submit'); 
 const fullname = document.querySelector('.profile__fullname'); 
 const subtitle = document.querySelector('.profile__subtitle'); 
 const fullnameInput = document.querySelector('.popup__input_fullname'); 
 const subtitleInput = document.querySelector('.popup__input_subtitle'); 
 const exitButton = document.querySelector('.popup__profile_close');
-const profileForm = document.querySelector('form[name="shape"]');
-const editButtonSubmit = document.querySelector('.popup__submit_profile');
+// const profileForm = document.querySelector('form[name="shape"]');
+// const editButtonSubmit = document.querySelector('.popup__submit_profile');
 
 //Открываем фото попап
 const photoPopup = document.querySelector('.popup_type_photo')
@@ -27,43 +26,51 @@ const exitPhotoButton = document.querySelector('.popup__photo_close');
 const elementList = document.querySelector('.elements__list');
 const popupImage = document.querySelector('.popup_type_add-card');
 const addButton = document.querySelector('.profile__button_add');
+const submitButtonAddCard = popupImage.querySelector('.popup__button_type_submit');
 const nameInput = document.querySelector('.popup__input_name'); 
 const imageInput = document.querySelector('.popup__input_image');
 const exitAddButton = document.querySelector('.popup__image_close'); 
-const addImageForm = document.querySelector('form[name="image"]');
-const addButtonSubmit = document.querySelector('.popup__submit_image');
+// const addImageForm = document.querySelector('form[name="image"]');
 
-// вводим валидацию
-// const ShapeValidation = new FormValidator(validateSettings, 'form[name="shape"]');
-// const ImageValidation = new FormValidator(validateSettings, 'form[name="image"]');
+//инициализация
+const ProfileValidation = new FormValidator(validateSettings, 'form[name="shape"]');
+const AddCardValidation = new FormValidator(validateSettings, 'form[name="image"]');
 
-// создаем темплейт
-const createTemplate = document.querySelector('#element').content;
+const initialCards = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
 
-function createElement(elem){
-    const elementTemplate = createTemplate.cloneNode(true);
-    const elementLink = elementTemplate.querySelector('.element__link');
-    const elementImage = elementTemplate.querySelector('.element__image');
-    const deleteButton = elementTemplate.querySelector('.element__delete');
-    const elementText = elementTemplate.querySelector('.element__text');
-    const likeButtons = elementTemplate.querySelector('.element__like');
-    elementImage.src = elem.link;
-    elementImage.alt = elem.name;
-    elementText.textContent = elem.name;
-    deleteButton.addEventListener('click',deleteElement);
-    likeButtons.addEventListener('click',likeElement);
-    elementLink.addEventListener('click',() => vievPopup(elementText.textContent, elementImage.src));
-    return elementTemplate;
-}
+// const cardContainer = document.querySelector('.elements__list');
 
-//удаление элемента
-function deleteElement(item) {
-    item.currentTarget.closest('.element').remove();
-}
-
-//ставим и убираем лайк
-function likeElement(evt) {
-    evt.target.classList.toggle('element__like_clicked');
+function addInitialCards() {
+    initialCards.forEach((item) => {
+      const card = new Card(item.name, item.link);
+      const cardElement = card.createCard();
+      elementList.prepend(cardElement);
+    });
 }
 
 //открытие и закрытие попапов
@@ -94,10 +101,9 @@ function overlayPopupClose(evt) {
 //редактирование профиля 
 function openProfile() {  
     popupOpen(popupProfile)
-    resetForm(popupProfile)
-    enableButton(editButtonSubmit,'popup__button_disabled');
     fullnameInput.value = fullname.innerText  
     subtitleInput.value = subtitle.innerText
+    ProfileValidation.enableValidation();
 }
   
 function saveChange(event) {  
@@ -114,25 +120,17 @@ function vievPopup(name,link){
     popupOpen(photoPopup);
 }
 
-//создание карточек
-function addCard(card) {
-    elementList.prepend(card);
-}
-
 //открытие попапа с добавлением нового элемента
-addImageForm.addEventListener('submit', (evt) => {
+function addCard(evt) {
     evt.preventDefault();
-    const card = {
-      name: nameInput.value,
-      link: imageInput.value
-    };
-    addCard(createElement(card))
+    const card = new Card(nameInput.value, imageInput.value);
+    const cardElement = card.createCard();
+    elementList.prepend(cardElement);
     nameInput.value = '';
     imageInput.value = '';
     popupClose(popupImage);
-    resetForm(popupImage);
-    disableButton(addButtonSubmit,'popup__button_disabled');
-});
+}
+
 
 popupProfile.addEventListener('click', overlayPopupClose);
 photoPopup.addEventListener('click', overlayPopupClose);
@@ -143,13 +141,10 @@ exitButton.addEventListener('click', () => popupClose(popupProfile));
 addButton.addEventListener('click', () => popupOpen(popupImage));
 exitAddButton.addEventListener('click', () => popupClose(popupImage));
 
-profileForm.addEventListener('submit', saveChange);
+submitButtonAddCard.addEventListener('click', addCard, AddCardValidation.enableValidation());
+editFormSubmitButton.addEventListener('click', saveChange);
 editButton.addEventListener('click', openProfile);  
 
-//загружаем карточки
-function addInitialCards() {
-    initialCards.forEach((cardElement) => {
-        addCard(createElement(cardElement))
-    });
-}
+export {vievPopup};
+
 addInitialCards();
