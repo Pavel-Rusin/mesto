@@ -1,16 +1,17 @@
 import {
     vievPopup
-} from "./index.js";
+} from "./Index.js";
 
 export default class Card {
-    constructor(text, image) {
+    constructor(text, image, cardSelector) {
         this._text = text;
         this._image = image;
+        this._cardSelector = cardSelector;
     }
 
     _getTemplate() {
         const cardElement = document
-          .querySelector('#element')
+          .querySelector(this._cardSelector)
           .content
           .querySelector('.element')
           .cloneNode(true);
@@ -42,9 +43,10 @@ export default class Card {
 
     createCard() {
         this._element = this._getTemplate();
+        const elementImage = this._element.querySelector('.element__image');
         this._setEventListeners();
-        this._element.querySelector('.element__image').src = this._image;
-        this._element.querySelector('.element__image').alt = this._text;
+        elementImage.src = this._image;
+        elementImage.alt = this._text; 
         this._element.querySelector('.element__text').textContent = this._text;
 
         return this._element;

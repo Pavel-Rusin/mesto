@@ -33,8 +33,8 @@ const exitAddButton = document.querySelector('.popup__image_close');
 // const addImageForm = document.querySelector('form[name="image"]');
 
 //инициализация
-const ProfileValidation = new FormValidator(validateSettings, 'form[name="shape"]');
-const AddCardValidation = new FormValidator(validateSettings, 'form[name="image"]');
+const profileValidation = new FormValidator(validateSettings, 'form[name="shape"]');
+const addCardValidation = new FormValidator(validateSettings, 'form[name="image"]');
 
 const initialCards = [
     {
@@ -67,7 +67,7 @@ const initialCards = [
 
 function addInitialCards() {
     initialCards.forEach((item) => {
-      const card = new Card(item.name, item.link);
+      const card = new Card(item.name, item.link, '#element');
       const cardElement = card.createCard();
       elementList.prepend(cardElement);
     });
@@ -103,7 +103,8 @@ function openProfile() {
     popupOpen(popupProfile)
     fullnameInput.value = fullname.innerText  
     subtitleInput.value = subtitle.innerText
-    ProfileValidation.enableValidation();
+    profileValidation._actualizeButton();
+    profileValidation._resetForm();
 }
   
 function saveChange(event) {  
@@ -123,7 +124,7 @@ function vievPopup(name,link){
 //открытие попапа с добавлением нового элемента
 function addCard(evt) {
     evt.preventDefault();
-    const card = new Card(nameInput.value, imageInput.value);
+    const card = new Card(nameInput.value, imageInput.value, '#element');
     const cardElement = card.createCard();
     elementList.prepend(cardElement);
     nameInput.value = '';
@@ -131,6 +132,14 @@ function addCard(evt) {
     popupClose(popupImage);
 }
 
+function openAddCard() {
+    popupOpen(popupImage);
+    addCardValidation._actualizeButton();
+    addCardValidation._resetForm();
+}
+
+addCardValidation.enableValidation();
+profileValidation.enableValidation();
 
 popupProfile.addEventListener('click', overlayPopupClose);
 photoPopup.addEventListener('click', overlayPopupClose);
@@ -138,10 +147,10 @@ popupImage.addEventListener('click', overlayPopupClose);
 
 exitPhotoButton.addEventListener('click', () => popupClose(photoPopup));
 exitButton.addEventListener('click', () => popupClose(popupProfile));
-addButton.addEventListener('click', () => popupOpen(popupImage));
 exitAddButton.addEventListener('click', () => popupClose(popupImage));
 
-submitButtonAddCard.addEventListener('click', addCard, AddCardValidation.enableValidation());
+addButton.addEventListener('click', openAddCard);
+submitButtonAddCard.addEventListener('click', addCard);
 editFormSubmitButton.addEventListener('click', saveChange);
 editButton.addEventListener('click', openProfile);  
 
