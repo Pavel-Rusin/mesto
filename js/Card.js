@@ -1,6 +1,6 @@
 import {
     vievPopup
-} from "./Index.js";
+} from "./index.js";
 
 export default class Card {
     constructor(text, image, cardSelector) {

@@ -103,8 +103,8 @@ function openProfile() {
     popupOpen(popupProfile)
     fullnameInput.value = fullname.innerText  
     subtitleInput.value = subtitle.innerText
-    profileValidation._actualizeButton();
-    profileValidation._resetForm();
+    profileValidation.actualizeButton();
+    profileValidation.resetForm();
 }
   
 function saveChange(event) {  
@@ -134,8 +134,8 @@ function addCard(evt) {
 
 function openAddCard() {
     popupOpen(popupImage);
-    addCardValidation._actualizeButton();
-    addCardValidation._resetForm();
+    addCardValidation.actualizeButton();
+    addCardValidation.resetForm();
 }
 
 addCardValidation.enableValidation();

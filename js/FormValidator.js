@@ -18,7 +18,7 @@ export default class FormValidator {
     this._buttonElement.removeAttribute("disabled", true);
   }
 
-  _actualizeButton () {
+  actualizeButton () {
     if (this._hasInvalidInput()) {
       this._disableButton();
     } else {
@@ -54,7 +54,7 @@ export default class FormValidator {
     errorElement.textContent = "";
   }
   
-  _resetForm() {
+  resetForm() {
     const errorInputs = Array.from(this._element.querySelectorAll('.popup__input_type_error'));
     const errorMessages = Array.from(this._element.querySelectorAll('.popup__error_visible'));
     errorInputs.forEach(errorInput => {
@@ -73,12 +73,12 @@ export default class FormValidator {
   _setEventListeners() {
     this._inputList = Array.from(this._element.querySelectorAll(this._inputSelector));
     this._buttonElement = this._element.querySelector(this._submitButtonSelector);
-    this._actualizeButton();
-    this._resetForm();
+    this.actualizeButton();
+    this.resetForm();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
-        this._actualizeButton();
+        this.actualizeButton();
       });
     });
   }
