@@ -6,13 +6,13 @@ export default class Popup{
     open () {
         this._popup.classList.add('popup_opened');
         //this.setEventListeners();
-        document.addEventListener('keyup', (evt) => this._exitEscKey);
+        document.addEventListener('keyup', (evt) => this._exitEscKey(evt));
     }
 
     close () {
         this._popup.classList.remove('popup_opened');
         this._popup.removeEventListener('click', this._click);
-        document.removeEventListener('keyup', (evt) => this._exitEscKey);
+        document.removeEventListener('keyup', (evt) => this._exitEscKey(evt));
     }
 
     _exitEscKey(evt) {
