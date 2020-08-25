@@ -1,3 +1,4 @@
+import '../pages/index.css';
 import Card from './Card.js';
 import Section from './Section.js';
 import FormValidator from './FormValidator.js';
@@ -9,7 +10,6 @@ import PopupWithForm from './PopupWithForm.js';
 import UserInfo from './UserInfo.js';
 import { initialCards, editButton, popupProfile, fullnameProfile, subtitleProfile, fullnameInput, subtitleInput, 
     photoPopup, imageInPopup, textInPopup, elementList, popupImage, addButton} from './constants.js';
-import '../pages/index.css';
 
 //инициализация
 const profileValidation = new FormValidator(validateSettings, 'form[name="shape"]');
