@@ -64,16 +64,11 @@ editButton.addEventListener('click', () => {
     fullnameInput.value = userInfo.fullname
     subtitleInput.value = userInfo.subtitle
     infoPopup.open();
-    profileValidation.resetForm();
-    profileValidation.actualizeButton();
+    profileValidation.enableValidation();
 })
 
 
 addButton.addEventListener('click', () => {
     elementPopup.open()
-    addCardValidation.resetForm();
-    addCardValidation.actualizeButton();
+    addCardValidation.enableValidation();
 })
-
-profileValidation.enableValidation();
-addCardValidation.enableValidation();
