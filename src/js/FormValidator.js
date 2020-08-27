@@ -6,6 +6,7 @@ export default class FormValidator {
     this._inputErrorClass = validateSettings.inputErrorClass;
     this._errorClass = validateSettings.errorClass;
     this._form = form;
+    this._formElement = document.querySelector(this._form);
   }
 
   _disableButtonState() {
@@ -66,10 +67,10 @@ export default class FormValidator {
     });
   }
 
-  _getTemplate() {
-    const formElement = document.querySelector(this._form);
-    return formElement;
-  }
+  // _getTemplate() {
+  //   const formElement = document.querySelector(this._form);
+  //   return formElement;
+  // }
 
   _setEventListeners() {
     this._inputList = Array.from(this._element.querySelectorAll(this._inputSelector));
@@ -85,7 +86,7 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    this._element = this._getTemplate();
+    this._element = this._formElement;
     this._element.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
