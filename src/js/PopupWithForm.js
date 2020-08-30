@@ -19,18 +19,12 @@ export default class PopupWithForm extends Popup {
 
     setEventListeners() {
         super.setEventListeners();
-
-        // this._form.addEventListener('submit', (evt) =>{
-        //     evt.preventDefault();
-        //     this._formSubmit(this._getInputValues);
-        // })
-        const submitButton = this._form.querySelector('.popup__button_type_submit')
+        this.submitButton = this._form.querySelector('.popup__submit')
         this._form.addEventListener('submit', (evt) => {
-          if (submitButton.classList.contains('popup__button_inactive')) { return false }
+          if (this.submitButton.classList.contains('popup__button_inactive')) { return false }
           else {
             evt.preventDefault()
             this._formSubmit(this._getInputValues())
-            this.close()
           }
         })
     }

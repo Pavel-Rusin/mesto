@@ -11,8 +11,12 @@ export default class UserInfo {
         }
     }
     
-    setUserInfo(fullnameValue, subtitleValue) {
-        this._fullname.textContent = fullnameValue.value;
-        this._subtitle.textContent = subtitleValue.value;
+    setUserInfo({ name, about }) {
+        this._fullname.textContent = name
+        this._subtitle.textContent = about
+    }
+
+    setAvatar(avatar) {
+        document.querySelector('.profile__avatar').style.backgroundImage = 'url('+avatar+')'
     }
 }

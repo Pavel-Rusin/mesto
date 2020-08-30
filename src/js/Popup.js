@@ -21,15 +21,6 @@ export default class Popup{
         }
     }
 
-    // _overlayPopupClose(evt) {
-    //     if (evt.target === this._popup) {
-    //         this.close();
-    //     }
-    //     if (evt.target.classList.contains('popup__close')) {
-    //         this.close();
-    //     }
-    // }
-
     setEventListeners() {
         this._closeButton = this._popup.querySelector('.popup__close');
         this._closeButton.addEventListener('mousedown', () => {
