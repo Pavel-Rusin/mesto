@@ -134,7 +134,7 @@ const renderCards = function (cards) {
     const cardsList = new Section({
         data: cards,
         renderer: (element) => {
-            cardsList.addItem(createElementCard(element))
+            cardsList.appendCard(createElementCard(element))
         },
         // addNewCard: (element) => {
         //     cardsList.addItem(createElementCard(element))

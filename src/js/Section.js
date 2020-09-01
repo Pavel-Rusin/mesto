@@ -16,4 +16,8 @@ export default class Section {
     addNewCard(card) {
         this._container.prepend(card)
     }
+    
+    appendCard(card) {
+        this._container.append(card)
+    }
 }
